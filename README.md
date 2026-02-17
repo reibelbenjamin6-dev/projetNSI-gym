@@ -1,2 +1,2 @@
-# projetNSI-gym
+# projetNSI
 projet nsi 2026 
