@@ -24,7 +24,7 @@ def load_user(user_id):
 def home():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard"))
-    return "<h1>Accueil</h1><p><a href='/register'>Register</a> | <a href='/login'>Login</a></p>"
+    return "<h1>Accueil</h1><p><a href='/register'>Créer un compte</a> | <a href='/login'>SE connecter</a></p>"
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
