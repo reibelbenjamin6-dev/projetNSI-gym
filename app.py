@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, render_template
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import db, User
 
@@ -24,7 +24,7 @@ def load_user(user_id):
 def home():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard"))
-    return "<h1>Accueil</h1><p><a href='/register'>Créer un compte</a> | <a href='/login'>SE connecter</a></p>"
+    return render_template("home.html") 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -44,14 +44,7 @@ def register():
         db.session.commit()
         return redirect(url_for("login"))
 
-    return """
-    <h1>Inscription</h1>
-    <form method="post">
-      <input name="username" placeholder="Pseudo" required>
-      <input name="password" type="password" placeholder="Mot de passe" required>
-      <button type="submit">Créer</button>
-    </form>
-    """
+    return render_template("register.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -64,26 +57,18 @@ def login():
             return redirect(url_for("dashboard"))
         return "Identifiants incorrects. <a href='/login'>Réessayer</a>"
 
-    return """
-    <h1>Connexion</h1>
-    <form method="post">
-      <input name="username" placeholder="Pseudo" required>
-      <input name="password" type="password" placeholder="Mot de passe" required>
-      <button type="submit">Se connecter</button>
-    </form>
-    """
+    return render_template("login.html")
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("home"))
+    return render_template("home.html")
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return f"<h1>Dashboard</h1><p>Connecté: {current_user.username}</p><p><a href='/logout'>Logout</a></p>"
-
+    return render_template("dashboard.html")
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
