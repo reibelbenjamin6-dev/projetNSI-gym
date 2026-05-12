@@ -1,0 +1,11 @@
+<h1>Classement {{ muscle_name }}</h1>
+
+<ol>
+    {% for user in leaderboard %}
+        <li>
+            {{ user.username }} - {{ user.points }} points
+        </li>
+    {% endfor %}
+</ol>
+
+<a href="/dashboard">Retour dashboard</a>

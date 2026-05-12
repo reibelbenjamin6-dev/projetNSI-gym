@@ -176,7 +176,35 @@ def exercise_leaderboard(exercise_id):
         exercise=exercise
     )
 
+@app.route("/muscle/<muscle_name>")
+@login_required
+def muscle_leaderboard(muscle_name):
+    leaderboard = []
 
+    users = User.query.all()
+
+    for user in users:
+        total = 0
+
+        for performance in user.performances:
+            if performance.exercise.muscle == muscle_name:
+                total = total + performance.points
+
+        leaderboard.append({
+            "username": user.username,
+            "points": total
+        })
+
+    leaderboard.sort(
+        key=lambda user: user["points"],
+        reverse=True
+    )
+
+    return render_template(
+        "muscle_leaderboard.html",
+        leaderboard=leaderboard,
+        muscle_name=muscle_name
+    )
 
 if __name__ == "__main__":
     with app.app_context():
