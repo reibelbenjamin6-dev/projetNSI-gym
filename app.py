@@ -75,10 +75,16 @@ def dashboard():
         user_id=current_user.id
     ).all()
 
+    total_points = 0
+
+    for performance in performances:
+        total_points = total_points + performance.points
+
     return render_template(
         "dashboard.html",
         exercises=exercises,
-        performances=performances
+        performances=performances,
+        total_points=total_points
     )
 
 
