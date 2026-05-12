@@ -68,8 +68,18 @@ def logout():
 @app.route("/dashboard")
 @login_required
 def dashboard():
+
     exercises = Exercise.query.all()
-    return render_template("dashboard.html", exercises=exercises)
+
+    performances = Performance.query.filter_by(
+        user_id=current_user.id
+    ).all()
+
+    return render_template(
+        "dashboard.html",
+        exercises=exercises,
+        performances=performances
+    )
 
 
 @app.route("/add-performance", methods=["GET", "POST"])

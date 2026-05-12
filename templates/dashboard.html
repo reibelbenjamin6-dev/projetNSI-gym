@@ -17,3 +17,21 @@
         </li>
     {% endfor %}
 </ul>
+
+
+
+<h2>Mes performances</h2>
+
+<ul>
+    {% for performance in performances %}
+        <li>
+            {{ performance.exercise.name }}
+            -
+            {{ performance.weight }} kg
+            ×
+            {{ performance.reps }} reps
+            =
+            {{ performance.points }} points
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,31 @@
+<h1>Ajouter une performance</h1>
+
+<form method="POST">
+    <label>Exercice :</label>
+
+    <select name="exercise_id" required>
+        {% for exercise in exercises %}
+            <option value="{{ exercise.id }}">
+                {{ exercise.name }} - {{ exercise.muscle }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Poids en kg :</label>
+    <input type="number" name="weight" step="0.5" required>
+
+    <br><br>
+
+    <label>Répétitions :</label>
+    <input type="number" name="reps" required>
+
+    <br><br>
+
+    <button type="submit">Enregistrer</button>
+</form>
+
+<br>
+
+<a href="/dashboard">Retour au dashboard</a>
