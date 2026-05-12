@@ -1,7 +1,15 @@
-{% extends "base.html" %}
-
-{% block content %}
 <h1>Dashboard</h1>
+
 <p>Tu es connecté.</p>
-<p>Bienvenue {{ current_user.username }}.</p>
-{% endblock %}
+
+<a href="/logout">Se déconnecter</a>
+
+<h2>Liste des exercices</h2>
+
+<ul>
+    {% for exercise in exercises %}
+        <li>
+            {{ exercise.name }} - {{ exercise.muscle }}
+        </li>
+    {% endfor %}
+</ul>
