@@ -237,7 +237,7 @@ def muscle_leaderboard(muscle_name):
             "username": user.username,
             "points": total,
             "rank": get_rank(total)
-        })
+    })
 
     leaderboard.sort(
         key=lambda user: user["points"],
@@ -250,23 +250,121 @@ def muscle_leaderboard(muscle_name):
         muscle_name=muscle_name
     )
 
-
-@app.route("/ranks")
-@login_required
-def ranks_page():
-    return render_template("ranks.html", ranks=RANKS)
-
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
         if Exercise.query.count() == 0:
             exercises = [
-                Exercise(name="Bench Press", muscle="Chest"),
-                Exercise(name="Curl", muscle="Biceps"),
-                Exercise(name="Squat", muscle="Legs"),
-                Exercise(name="Pull Up", muscle="Back")
-            ]
+
+    # CHEST
+    Exercise(name="Bench Press", muscle="Chest"),
+    Exercise(name="Incline Bench Press", muscle="Chest"),
+    Exercise(name="Decline Bench Press", muscle="Chest"),
+    Exercise(name="Dumbbell Press", muscle="Chest"),
+    Exercise(name="Incline Dumbbell Press", muscle="Chest"),
+    Exercise(name="Chest Fly", muscle="Chest"),
+    Exercise(name="Cable Fly", muscle="Chest"),
+    Exercise(name="Push Up", muscle="Chest"),
+    Exercise(name="Dips", muscle="Chest"),
+    Exercise(name="Machine Chest Press", muscle="Chest"),
+
+    # BACK
+    Exercise(name="Pull Up", muscle="Back"),
+    Exercise(name="Chin Up", muscle="Back"),
+    Exercise(name="Lat Pulldown", muscle="Back"),
+    Exercise(name="Barbell Row", muscle="Back"),
+    Exercise(name="Dumbbell Row", muscle="Back"),
+    Exercise(name="T-Bar Row", muscle="Back"),
+    Exercise(name="Deadlift", muscle="Back"),
+    Exercise(name="Seated Cable Row", muscle="Back"),
+    Exercise(name="Rack Pull", muscle="Back"),
+    Exercise(name="Straight Arm Pulldown", muscle="Back"),
+
+    # SHOULDERS
+    Exercise(name="Shoulder Press", muscle="Shoulders"),
+    Exercise(name="Arnold Press", muscle="Shoulders"),
+    Exercise(name="Lateral Raise", muscle="Shoulders"),
+    Exercise(name="Front Raise", muscle="Shoulders"),
+    Exercise(name="Rear Delt Fly", muscle="Shoulders"),
+    Exercise(name="Machine Shoulder Press", muscle="Shoulders"),
+    Exercise(name="Cable Lateral Raise", muscle="Shoulders"),
+    Exercise(name="Face Pull", muscle="Shoulders"),
+    Exercise(name="Upright Row", muscle="Shoulders"),
+    Exercise(name="Dumbbell Press", muscle="Shoulders"),
+
+    # BICEPS
+    Exercise(name="Barbell Curl", muscle="Biceps"),
+    Exercise(name="Dumbbell Curl", muscle="Biceps"),
+    Exercise(name="Hammer Curl", muscle="Biceps"),
+    Exercise(name="Preacher Curl", muscle="Biceps"),
+    Exercise(name="Cable Curl", muscle="Biceps"),
+    Exercise(name="Spider Curl", muscle="Biceps"),
+    Exercise(name="EZ Bar Curl", muscle="Biceps"),
+    Exercise(name="Concentration Curl", muscle="Biceps"),
+    Exercise(name="Incline Curl", muscle="Biceps"),
+    Exercise(name="Machine Curl", muscle="Biceps"),
+
+    # TRICEPS
+    Exercise(name="Tricep Pushdown", muscle="Triceps"),
+    Exercise(name="Skull Crusher", muscle="Triceps"),
+    Exercise(name="Overhead Extension", muscle="Triceps"),
+    Exercise(name="Close Grip Bench", muscle="Triceps"),
+    Exercise(name="Bench Dips", muscle="Triceps"),
+    Exercise(name="Cable Pushdown", muscle="Triceps"),
+    Exercise(name="Single Arm Pushdown", muscle="Triceps"),
+    Exercise(name="French Press", muscle="Triceps"),
+    Exercise(name="JM Press", muscle="Triceps"),
+    Exercise(name="Machine Tricep Extension", muscle="Triceps"),
+
+    # LEGS
+    Exercise(name="Squat", muscle="Legs"),
+    Exercise(name="Front Squat", muscle="Legs"),
+    Exercise(name="Hack Squat", muscle="Legs"),
+    Exercise(name="Leg Press", muscle="Legs"),
+    Exercise(name="Romanian Deadlift", muscle="Legs"),
+    Exercise(name="Bulgarian Split Squat", muscle="Legs"),
+    Exercise(name="Lunges", muscle="Legs"),
+    Exercise(name="Leg Extension", muscle="Legs"),
+    Exercise(name="Leg Curl", muscle="Legs"),
+    Exercise(name="Smith Machine Squat", muscle="Legs"),
+
+    # ABS
+    Exercise(name="Crunch", muscle="Abs"),
+    Exercise(name="Cable Crunch", muscle="Abs"),
+    Exercise(name="Leg Raise", muscle="Abs"),
+    Exercise(name="Hanging Leg Raise", muscle="Abs"),
+    Exercise(name="Sit Up", muscle="Abs"),
+    Exercise(name="Russian Twist", muscle="Abs"),
+    Exercise(name="Plank", muscle="Abs"),
+    Exercise(name="Ab Wheel", muscle="Abs"),
+    Exercise(name="Toe Touch", muscle="Abs"),
+    Exercise(name="Mountain Climbers", muscle="Abs"),
+
+    # FOREARMS
+    Exercise(name="Wrist Curl", muscle="Forearms"),
+    Exercise(name="Reverse Wrist Curl", muscle="Forearms"),
+    Exercise(name="Farmer Walk", muscle="Forearms"),
+    Exercise(name="Dead Hang", muscle="Forearms"),
+    Exercise(name="Grip Trainer", muscle="Forearms"),
+    Exercise(name="Plate Pinch", muscle="Forearms"),
+    Exercise(name="Hammer Hold", muscle="Forearms"),
+    Exercise(name="Behind Back Curl", muscle="Forearms"),
+    Exercise(name="Finger Curl", muscle="Forearms"),
+    Exercise(name="Towel Pull Up", muscle="Forearms"),
+
+    # CALVES
+    Exercise(name="Standing Calf Raise", muscle="Calves"),
+    Exercise(name="Seated Calf Raise", muscle="Calves"),
+    Exercise(name="Donkey Calf Raise", muscle="Calves"),
+    Exercise(name="Single Leg Calf Raise", muscle="Calves"),
+    Exercise(name="Smith Machine Calf Raise", muscle="Calves"),
+    Exercise(name="Leg Press Calf Raise", muscle="Calves"),
+    Exercise(name="Jump Rope", muscle="Calves"),
+    Exercise(name="Box Jump", muscle="Calves"),
+    Exercise(name="Farmer Walk On Toes", muscle="Calves"),
+    Exercise(name="Machine Calf Raise", muscle="Calves"),
+]
 
             db.session.add_all(exercises)
             db.session.commit()
