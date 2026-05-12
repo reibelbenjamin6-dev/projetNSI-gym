@@ -141,6 +141,41 @@ def leaderboard():
 
     return render_template("leaderboard.html", leaderboard=leaderboard)
 
+@app.route("/exercise/<int:exercise_id>")
+@login_required
+def exercise_leaderboard(exercise_id):
+
+    exercise = Exercise.query.get_or_404(exercise_id)
+
+    leaderboard = []
+
+    users = User.query.all()
+
+    for user in users:
+
+        total = 0
+
+        for performance in user.performances:
+
+            if performance.exercise_id == exercise.id:
+                total = total + performance.points
+
+        leaderboard.append({
+            "username": user.username,
+            "points": total
+        })
+
+    leaderboard.sort(
+        key=lambda user: user["points"],
+        reverse=True
+    )
+
+    return render_template(
+        "exercise_leaderboard.html",
+        leaderboard=leaderboard,
+        exercise=exercise
+    )
+
 
 
 if __name__ == "__main__":
