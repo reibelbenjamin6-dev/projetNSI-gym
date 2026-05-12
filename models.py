@@ -15,3 +15,15 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
+
+
+class Workout(db.Model):
+    __tablename__ = "workouts"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    name = db.Column(db.String(100), nullable=False)
+
+    date = db.Column(db.DateTime, server_default=db.func.now())
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
