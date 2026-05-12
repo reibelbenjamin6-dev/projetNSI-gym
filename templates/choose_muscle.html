@@ -1,0 +1,13 @@
+<h1>Choisir un groupe musculaire</h1>
+
+<ul>
+    {% for muscle in muscles %}
+        <li>
+            <a href="/add-performance/{{ muscle }}">
+                {{ muscle }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="/dashboard">Retour dashboard</a>

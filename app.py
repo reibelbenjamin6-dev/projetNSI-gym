@@ -130,7 +130,18 @@ def dashboard():
 )
 
 
-@app.route("/add-performance", methods=["GET", "POST"])
+@app.route("/add-performance")
+@login_required
+def choose_muscle():
+    muscles = []
+
+    exercises = Exercise.query.all()
+
+    for exercise in exercises:
+        if exercise.muscle not in muscles:
+            muscles.append(exercise.muscle)
+
+    return render_template("choose_muscle.html", muscles=muscles)
 @login_required
 def add_performance():
     exercises = Exercise.query.all()
@@ -249,6 +260,38 @@ def muscle_leaderboard(muscle_name):
         leaderboard=leaderboard,
         muscle_name=muscle_name
     )
+
+@app.route("/add-performance/<muscle_name>", methods=["GET", "POST"])
+@login_required
+def add_performance_by_muscle(muscle_name):
+    exercises = Exercise.query.filter_by(muscle=muscle_name).all()
+
+    if request.method == "POST":
+        exercise_id = request.form.get("exercise_id")
+        weight = float(request.form.get("weight"))
+        reps = int(request.form.get("reps"))
+
+        points = weight * reps
+
+        performance = Performance(
+            weight=weight,
+            reps=reps,
+            points=points,
+            user_id=current_user.id,
+            exercise_id=exercise_id
+        )
+
+        db.session.add(performance)
+        db.session.commit()
+
+        return redirect(url_for("dashboard"))
+
+    return render_template(
+        "add_performance.html",
+        exercises=exercises,
+        muscle_name=muscle_name
+    )
+
 
 if __name__ == "__main__":
     with app.app_context():
