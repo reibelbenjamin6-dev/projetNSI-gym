@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, redirect, url_for, render_template
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from models import db, User
+from models import db, User, Exercise, Performance
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "dev-secret-change-me"
@@ -68,8 +68,53 @@ def logout():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    exercises = Exercise.query.all()
+    return render_template("dashboard.html", exercises=exercises)
+
+
+@app.route("/add-performance", methods=["GET", "POST"])
+@login_required
+def add_performance():
+    exercises = Exercise.query.all()
+
+    if request.method == "POST":
+        exercise_id = request.form.get("exercise_id")
+        weight = float(request.form.get("weight"))
+        reps = int(request.form.get("reps"))
+
+        points = weight * reps
+
+        performance = Performance(
+            weight=weight,
+            reps=reps,
+            points=points,
+            user_id=current_user.id,
+            exercise_id=exercise_id
+        )
+
+        db.session.add(performance)
+        db.session.commit()
+
+        return redirect(url_for("dashboard"))
+
+    return render_template("add_performance.html", exercises=exercises)
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
+
+        if Exercise.query.count() == 0:
+            exercises = [
+                Exercise(name="Bench Press", muscle="Chest"),
+                Exercise(name="Curl", muscle="Biceps"),
+                Exercise(name="Squat", muscle="Legs"),
+                Exercise(name="Pull Up", muscle="Back")
+            ]
+
+            db.session.add_all(exercises)
+            db.session.commit()
+
+            print("Exercices ajoutés dans la base.")
+
     app.run(host="0.0.0.0", port=5000, debug=True)
