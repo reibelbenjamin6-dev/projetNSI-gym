@@ -3,7 +3,7 @@
 <ol>
     {% for user in leaderboard %}
         <li>
-            {{ user.username }} - {{ user.points }} points
+            {{ user.username }} - {{ user.points }} points - {{ user.rank }}
         </li>
     {% endfor %}
 </ol>

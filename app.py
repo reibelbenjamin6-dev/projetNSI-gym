@@ -3,6 +3,45 @@ from flask import Flask, request, redirect, url_for, render_template
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import db, User, Exercise, Performance
 
+RANKS = [
+    (0, "Bronze"),
+    (500, "Argent"),
+    (1250, "Or"),
+    (2500, "Platine"),
+    (5000, "Diamant"),
+    (8000, "Titan"),
+    (12000, "Colosse"),
+    (17000, "Alpha"),
+    (23000, "Noel Deyzel"),
+    (30000, "Anatoly"),
+    (38000, "GigaChad"),
+    (47000, "Larry Wheels 2x8"),
+    (57000, "Tren Twins"),
+    (70000, "Sam Sulek"),
+    (85000, "Lee Heath"),
+    (105000, "David Laid"),
+    (130000, "Jay Cutler"),
+    (160000, "Tom Platz"),
+    (200000, "Cbum"),
+    (250000, "Arnold"),
+    (325000, "Ronnie Mode"),
+    (425000, "Lightweight Baby"),
+    (550000, "Mr Olympia"),
+    (700000, "IFBB Elite"),
+    (900000, "Abdelkader"),
+    (1200000, "Olympia Legend"),
+    (1500000, "Greek Physique"),
+]
+
+def get_rank(points):
+    current_rank = "Bronze"
+
+    for minimum_points, rank_name in RANKS:
+        if points >= minimum_points:
+            current_rank = rank_name
+
+    return current_rank
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "dev-secret-change-me"
 
@@ -79,14 +118,16 @@ def dashboard():
 
     for performance in performances:
         total_points = total_points + performance.points
+    user_rank = get_rank(total_points)
 
 
     return render_template(
-        "dashboard.html",
-        exercises=exercises,
-        performances=performances,
-        total_points=total_points
-    )
+    "dashboard.html",
+    exercises=exercises,
+    performances=performances,
+    total_points=total_points,
+    user_rank=user_rank
+)
 
 
 @app.route("/add-performance", methods=["GET", "POST"])
@@ -130,9 +171,10 @@ def leaderboard():
             total = total + performance.points
 
         leaderboard.append({
-            "username": user.username,
-            "points": total
-        })
+    "username": user.username,
+    "points": total,
+    "rank": get_rank(total)
+})
 
     leaderboard.sort(
         key=lambda x: x["points"],
@@ -161,9 +203,10 @@ def exercise_leaderboard(exercise_id):
                 total = total + performance.points
 
         leaderboard.append({
-            "username": user.username,
-            "points": total
-        })
+    "username": user.username,
+    "points": total,
+    "rank": get_rank(total)
+})
 
     leaderboard.sort(
         key=lambda user: user["points"],
@@ -192,7 +235,8 @@ def muscle_leaderboard(muscle_name):
 
         leaderboard.append({
             "username": user.username,
-            "points": total
+            "points": total,
+            "rank": get_rank(total)
         })
 
     leaderboard.sort(
