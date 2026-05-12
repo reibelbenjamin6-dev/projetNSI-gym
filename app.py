@@ -293,6 +293,17 @@ def add_performance_by_muscle(muscle_name):
     )
 
 
+@app.route("/exercises/<muscle_name>")
+@login_required
+def exercises_by_muscle(muscle_name):
+    exercises = Exercise.query.filter_by(muscle=muscle_name).all()
+
+    return render_template(
+        "exercises_by_muscle.html",
+        exercises=exercises,
+        muscle_name=muscle_name
+    )
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
