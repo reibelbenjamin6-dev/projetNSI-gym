@@ -1,0 +1,11 @@
+<h1>Classement global</h1>
+
+<ol>
+    {% for user in leaderboard %}
+        <li>
+            {{ user.username }} - {{ user.points }} points
+        </li>
+    {% endfor %}
+</ol>
+
+<a href="/dashboard">Retour au dashboard</a>

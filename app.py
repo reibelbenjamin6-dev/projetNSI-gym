@@ -80,33 +80,12 @@ def dashboard():
     for performance in performances:
         total_points = total_points + performance.points
 
-    leaderboard = []
-
-    users = User.query.all()
-
-    for user in users:
-
-        total = 0
-
-        for performance in user.performances:
-            total = total + performance.points
-
-        leaderboard.append({
-            "username": user.username,
-            "points": total
-        })
-
-    leaderboard.sort(
-        key=lambda x: x["points"],
-        reverse=True
-    )
 
     return render_template(
         "dashboard.html",
         exercises=exercises,
         performances=performances,
-        total_points=total_points,
-        leaderboard=leaderboard
+        total_points=total_points
     )
 
 
@@ -136,6 +115,32 @@ def add_performance():
         return redirect(url_for("dashboard"))
 
     return render_template("add_performance.html", exercises=exercises)
+
+@app.route("/leaderboard")
+@login_required
+def leaderboard():
+    leaderboard = []
+
+    users = User.query.all()
+
+    for user in users:
+        total = 0
+
+        for performance in user.performances:
+            total = total + performance.points
+
+        leaderboard.append({
+            "username": user.username,
+            "points": total
+        })
+
+    leaderboard.sort(
+        key=lambda x: x["points"],
+        reverse=True
+    )
+
+    return render_template("leaderboard.html", leaderboard=leaderboard)
+
 
 
 if __name__ == "__main__":
