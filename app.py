@@ -250,6 +250,12 @@ def muscle_leaderboard(muscle_name):
         muscle_name=muscle_name
     )
 
+
+@app.route("/ranks")
+@login_required
+def ranks_page():
+    return render_template("ranks.html", ranks=RANKS)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
