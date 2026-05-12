@@ -80,11 +80,33 @@ def dashboard():
     for performance in performances:
         total_points = total_points + performance.points
 
+    leaderboard = []
+
+    users = User.query.all()
+
+    for user in users:
+
+        total = 0
+
+        for performance in user.performances:
+            total = total + performance.points
+
+        leaderboard.append({
+            "username": user.username,
+            "points": total
+        })
+
+    leaderboard.sort(
+        key=lambda x: x["points"],
+        reverse=True
+    )
+
     return render_template(
         "dashboard.html",
         exercises=exercises,
         performances=performances,
-        total_points=total_points
+        total_points=total_points,
+        leaderboard=leaderboard
     )
 
 

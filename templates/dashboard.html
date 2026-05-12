@@ -35,3 +35,14 @@
         </li>
     {% endfor %}
 </ul>
+
+
+<h2>Classement global</h2>
+
+<ol>
+    {% for user in leaderboard %}
+        <li>
+            {{ user.username }} - {{ user.points }} points
+        </li>
+    {% endfor %}
+</ol>
