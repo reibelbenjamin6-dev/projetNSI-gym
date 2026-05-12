@@ -1,0 +1,188 @@
+/* Reset de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f6fa;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+nav a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #f39c12;
+}
+
+/* Contenu principal */
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2 {
+    margin-bottom: 1rem;
+}
+
+/* Formulaires */
+form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #27ae60;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #219a52;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 0.5rem;
+    margin-top: 2rem;
+}
+
+/* Messages flash */
+.flash-messages {
+    max-width: 400px;
+    margin: 1rem auto;
+}
+.flash-message {
+    background: #e74c3c;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+/* Hero section (page d'accueil) */
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+.hero h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.hero p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+}
+
+/* Boutons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    margin: 0 0.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-green {
+    background-color: #27ae60;
+    color: white;
+}
+.btn-green:hover {
+    background-color: #219a52;
+}
+.btn-outline {
+    background: transparent;
+    border: 2px solid #2c3e50;
+    color: #2c3e50;
+}
+.btn-outline:hover {
+    background: #2c3e50;
+    color: white;
+}
+
+/* Conteneur de formulaire */
+.form-container {
+    max-width: 400px;
+    margin: 2rem auto;
+}
+.switch-link {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Grille d'exercices */
+.exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.exercise-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.exercise-card h4 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+.muscle {
+    background: #ecf0f1;
+    color: #2c3e50;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}

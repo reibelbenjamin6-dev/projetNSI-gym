@@ -2,23 +2,41 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gym Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gym Tracker{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <header>
+        <h1>🏋️ Gym Tracker</h1>
+        <nav>
+            <a href="{{ url_for('home') }}">Accueil</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Déconnexion</a>
+            {% else %}
+                <a href="{{ url_for('register') }}">Inscription</a>
+                <a href="{{ url_for('login') }}">Connexion</a>
+            {% endif %}
+        </nav>
+    </header>
 
-<nav>
-    <a href="{{ url_for('home') }}">Accueil</a>
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for msg in messages %}
+                        <p class="flash-message">{{ msg }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('logout') }}">Déconnexion</a>
-    {% else %}
-        <a href="{{ url_for('register') }}">Inscription</a>
-        <a href="{{ url_for('login') }}">Connexion</a>
-    {% endif %}
-</nav>
+        {% block content %}{% endblock %}
+    </main>
 
-{% block content %}{% endblock %}
-
+    <footer>
+        <p>Projet NSI – Gym Tracker &copy; 2026</p>
+    </footer>
 </body>
 </html>
