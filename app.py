@@ -55,6 +55,16 @@ login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.init_app(app)
 
+
+
+def get_next_rank(points):
+    for minimum_points, rank_name in RANKS:
+        if points < minimum_points:
+            points_needed = minimum_points - points
+            return rank_name, points_needed
+
+    return "Rank maximum atteint", 0
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -119,6 +129,7 @@ def dashboard():
     for performance in performances:
         total_points = total_points + performance.points
     user_rank = get_rank(total_points)
+    next_rank, points_needed = get_next_rank(total_points)
 
 
     return render_template(
@@ -126,7 +137,9 @@ def dashboard():
     exercises=exercises,
     performances=performances,
     total_points=total_points,
-    user_rank=user_rank
+    user_rank=user_rank,
+    next_rank=next_rank,
+    points_needed=points_needed
 )
 
 
