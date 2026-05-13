@@ -6,6 +6,7 @@
     <form method="post">
         <input name="username" placeholder="Pseudo" required>
         <input name="password" type="password" placeholder="Mot de passe" required>
+        <p class="password-hint">Minimum 6 caractères</p>
         <button type="submit">Créer le compte</button>
     </form>
     <p class="switch-link">Déjà membre ? <a href="{{ url_for('login') }}">Connecte-toi</a></p>
