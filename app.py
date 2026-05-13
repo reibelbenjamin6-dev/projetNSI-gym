@@ -304,6 +304,19 @@ def exercises_by_muscle(muscle_name):
         muscle_name=muscle_name
     )
 
+@app.route("/delete-performance/<int:performance_id>", methods=["POST"])
+@login_required
+def delete_performance(performance_id):
+    performance = Performance.query.get_or_404(performance_id)
+
+    if performance.user_id != current_user.id:
+        return redirect(url_for("dashboard"))
+
+    db.session.delete(performance)
+    db.session.commit()
+
+    return redirect(url_for("dashboard"))
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

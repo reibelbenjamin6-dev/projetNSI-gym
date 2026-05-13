@@ -50,6 +50,10 @@
             {{ performance.reps }} reps
             =
             {{ performance.points }} points
+
+            <form action="/delete-performance/{{ performance.id }}" method="POST" style="display:inline;">
+                <button type="submit">Supprimer</button>
+            </form>
         </li>
     {% endfor %}
 </ul>
