@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% block title %}Dashboard – Gym Tracker{% endblock %}
 {% block content %}
-<h2>📊 Tableau de bord – {{ current_user.username }}</h2>
+<h2>Tableau de bord – {{ current_user.username }}</h2>
 
 <div class="dashboard-grid">
     <div class="card">
         <h3>➕ Nouvelle séance</h3>
         <a href="/add-performance" class="btn btn-primary">Ajouter une performance</a>
     </div>
-    <div class="card">
-        <h3>👤 Profil</h3>
+     <div class="card">
+        <h3>Profil</h3>
         <a href="/profile" class="btn btn-primary">Voir mon profil</a>
     </div>
-    <div class="card">
+     <div class="card">
         <h3>🏆 Classements</h3>
-        <ul>
-            <li><a href="/best-scores">Meilleurs scores globaux</a></li>
-            <li><a href="/leaderboard">Classement global</a></li>
-        </ul>
+        <div class="muscle-links">
+            <a href="/best-scores" class="btn btn-outline btn-sm">Meilleurs scores</a>
+            <a href="/leaderboard" class="btn btn-outline btn-sm">Classement global</a>
+        </div>
     </div>
     <div class="card">
         <h3>📋 Exercices par muscle</h3>

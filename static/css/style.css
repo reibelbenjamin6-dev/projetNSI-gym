@@ -237,3 +237,18 @@ footer {
     margin-bottom: 1.5rem;
     font-style: italic;
 }
+
+/* ====== PETITS BOUTONS (muscles, classements) ====== */
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    margin: 0.2rem;
+}
+
+/* Conteneur flexible pour les boutons de muscles / classements */
+.muscle-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;          /* espacement horizontal et vertical */
+    margin-top: 0.5rem;   /* décollage du titre au-dessus */
+}
