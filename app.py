@@ -128,19 +128,27 @@ def dashboard():
 
     for performance in performances:
         total_points = total_points + performance.points
+
     user_rank = get_rank(total_points)
     next_rank, points_needed = get_next_rank(total_points)
 
+    next_rank_threshold = total_points + points_needed
+
+    if next_rank_threshold == 0:
+        rank_progress = 100
+    else:
+        rank_progress = round((total_points / next_rank_threshold) * 100, 1)
 
     return render_template(
-    "dashboard.html",
-    exercises=exercises,
-    performances=performances,
-    total_points=total_points,
-    user_rank=user_rank,
-    next_rank=next_rank,
-    points_needed=points_needed
-)
+        "dashboard.html",
+        exercises=exercises,
+        performances=performances,
+        total_points=total_points,
+        user_rank=user_rank,
+        next_rank=next_rank,
+        points_needed=points_needed,
+        rank_progress=rank_progress
+    )
 
 
 @app.route("/add-performance")
