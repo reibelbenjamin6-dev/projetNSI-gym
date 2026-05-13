@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-
+{% block title %}Connexion – Gym Tracker{% endblock %}
 {% block content %}
-
-<h1>Connexion</h1>
-
-<form method="post">
-    <input name="username" placeholder="Pseudo" required>
-    <input name="password" type="password" placeholder="Mot de passe" required>
-    <button type="submit">Se connecter</button>
-</form>
-
+<div class="form-container">
+    <h2>Connexion</h2>
+    <form method="post">
+        <input name="username" placeholder="Pseudo" required>
+        <input name="password" type="password" placeholder="Mot de passe" required>
+        <button type="submit">Se connecter</button>
+    </form>
+    <p class="switch-link">Pas encore de compte ? <a href="{{ url_for('register') }}">Inscris-toi</a></p>
+</div>
 {% endblock %}

@@ -1,17 +1,27 @@
-<h1>Meilleurs scores globaux</h1>
-
+{% extends "base.html" %}
+{% block title %}Meilleurs scores globaux – Gym Tracker{% endblock %}
+{% block content %}
+<h2>🏅 Meilleurs scores globaux</h2>
 <p>Ce classement additionne les points de tous les exercices.</p>
 
-<ol>
-    {% for user in scores %}
-        <li>
-            {{ user.username }}
-            -
-            {{ user.points }} points
-            -
-            Rank : {{ user.rank }}
-        </li>
-    {% endfor %}
-</ol>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Rang</th>
+            <th>Utilisateur</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in scores %}
+            <tr>
+                <td>{{ user.rank }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.points }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-<a href="/dashboard">Retour dashboard</a>
+<p class="switch-link"><a href="/dashboard">← Retour dashboard</a></p>
+{% endblock %}

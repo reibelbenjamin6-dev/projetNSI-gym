@@ -1,13 +1,14 @@
-<h1>Choisir un groupe musculaire</h1>
-
-<ul>
+{% extends "base.html" %}
+{% block title %}Choisir un muscle – Gym Tracker{% endblock %}
+{% block content %}
+<h2>🦾 Choisir un groupe musculaire</h2>
+<div class="exercise-grid">
     {% for muscle in muscles %}
-        <li>
-            <a href="/add-performance/{{ muscle }}">
-                {{ muscle }}
-            </a>
-        </li>
+        <div class="exercise-card">
+            <h4>{{ muscle }}</h4>
+            <a href="/add-performance/{{ muscle }}" class="btn btn-primary">Sélectionner</a>
+        </div>
     {% endfor %}
-</ul>
-
-<a href="/dashboard">Retour dashboard</a>
+</div>
+<p class="switch-link"><a href="/dashboard">← Retour dashboard</a></p>
+{% endblock %}

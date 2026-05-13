@@ -1,11 +1,26 @@
-<h1>Classement {{ muscle_name }}</h1>
+{% extends "base.html" %}
+{% block title %}Classement {{ muscle_name }} – Gym Tracker{% endblock %}
+{% block content %}
+<h2>🏋️ Classement – {{ muscle_name }}</h2>
 
-<ol>
-    {% for user in leaderboard %}
-        <li>
-            {{ user.username }} - {{ user.points }} points - {{ user.rank }}
-        </li>
-    {% endfor %}
-</ol>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Rang</th>
+            <th>Utilisateur</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in leaderboard %}
+            <tr>
+                <td>{{ user.rank }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.points }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-<a href="/dashboard">Retour dashboard</a>
+<p class="switch-link"><a href="/dashboard">← Retour dashboard</a></p>
+{% endblock %}

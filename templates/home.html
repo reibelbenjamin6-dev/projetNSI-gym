@@ -1,7 +1,14 @@
 {% extends "base.html" %}
-
+{% block title %}Accueil – Gym Tracker{% endblock %}
 {% block content %}
-<h1>Accueil</h1>
-<p>Bienvenue sur Gym Tracker.</p>
-<p>Crée un compte ou connecte-toi pour accéder au dashboard.</p>
+<section class="hero">
+    <h2>Bienvenue sur Gym Tracker</h2>
+    <p>Suis tes performances, compare-toi aux autres et progresse visiblement.</p>
+    {% if not current_user.is_authenticated %}
+        <div class="cta">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Créer un compte</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline">Se connecter</a>
+        </div>
+    {% endif %}
+</section>
 {% endblock %}

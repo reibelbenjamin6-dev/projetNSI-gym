@@ -1,11 +1,13 @@
 {% extends "base.html" %}
-
+{% block title %}Inscription – Gym Tracker{% endblock %}
 {% block content %}
-<h1>Inscription</h1>
-
-<form method="post">
-    <input name="username" placeholder="Pseudo" required>
-    <input name="password" type="password" placeholder="Mot de passe" required>
-    <button type="submit">Créer le compte</button>
-</form>
+<div class="form-container">
+    <h2>Inscription</h2>
+    <form method="post">
+        <input name="username" placeholder="Pseudo" required>
+        <input name="password" type="password" placeholder="Mot de passe" required>
+        <button type="submit">Créer le compte</button>
+    </form>
+    <p class="switch-link">Déjà membre ? <a href="{{ url_for('login') }}">Connecte-toi</a></p>
+</div>
 {% endblock %}

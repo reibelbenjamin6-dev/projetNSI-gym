@@ -1,59 +1,63 @@
-<h1>Mon profil</h1>
+{% extends "base.html" %}
+{% block title %}Mon Profil – Gym Tracker{% endblock %}
+{% block content %}
+<h2>👤 Profil de {{ current_user.username }}</h2>
 
-<p><a href="/dashboard">Retour dashboard</a></p>
+<div class="card">
+    <h3>📊 Résumé</h3>
+    <ul>
+        <li><strong>Total points :</strong> {{ total_points }}</li>
+        <li><strong>Rang actuel :</strong> {{ user_rank }}</li>
+        <li><strong>Prochain rang :</strong> {{ next_rank }}</li>
+        <li><strong>Points manquants :</strong> {{ points_needed }}</li>
+        <li><strong>Nombre de performances :</strong> {{ performances|length }}</li>
+    </ul>
+</div>
 
-<h2>Résumé</h2>
+<div class="card">
+    <h3>🏅 Meilleur exercice</h3>
+    {% if best_exercise %}
+        <p>{{ best_exercise }} – {{ best_exercise_points }} points</p>
+    {% else %}
+        <p>Aucune performance enregistrée.</p>
+    {% endif %}
+</div>
 
-<p>Total de points : {{ total_points }}</p>
-<p>Rank actuel : {{ user_rank }}</p>
-<p>Prochain rank : {{ next_rank }}</p>
-<p>Points manquants : {{ points_needed }}</p>
-<p>Nombre de performances : {{ performances|length }}</p>
+<div class="card">
+    <h3>💪 Meilleur muscle</h3>
+    {% if best_muscle %}
+        <p>{{ best_muscle }} – {{ best_muscle_points }} points</p>
+    {% else %}
+        <p>Aucune performance enregistrée.</p>
+    {% endif %}
+</div>
 
-<h2>Meilleur exercice</h2>
+<div class="card">
+    <h3>🔥 Points par muscle</h3>
+    <ul>
+        {% for muscle, points in muscle_scores.items() %}
+            <li>{{ muscle }} – {{ points }} pts</li>
+        {% endfor %}
+    </ul>
+</div>
 
-{% if best_exercise %}
-    <p>{{ best_exercise }} - {{ best_exercise_points }} points</p>
-{% else %}
-    <p>Aucune performance enregistrée.</p>
-{% endif %}
+<div class="card">
+    <h3>💥 Points par exercice</h3>
+    <ul>
+        {% for exercise, points in exercise_scores.items() %}
+            <li>{{ exercise }} – {{ points }} pts</li>
+        {% endfor %}
+    </ul>
+</div>
 
-<h2>Meilleur muscle</h2>
+<div class="card">
+    <h3>🏆 Records personnels</h3>
+    <ul>
+        {% for exercise, record in personal_records.items() %}
+            <li><strong>{{ exercise }}</strong> : {{ record.weight }} kg × {{ record.reps }} reps = {{ record.points }} pts</li>
+        {% endfor %}
+    </ul>
+</div>
 
-{% if best_muscle %}
-    <p>{{ best_muscle }} - {{ best_muscle_points }} points</p>
-{% else %}
-    <p>Aucune performance enregistrée.</p>
-{% endif %}
-
-<h2>Points par muscle</h2>
-
-<ul>
-    {% for muscle, points in muscle_scores.items() %}
-        <li>{{ muscle }} - {{ points }} points</li>
-    {% endfor %}
-</ul>
-
-<h2>Points par exercice</h2>
-
-<ul>
-    {% for exercise, points in exercise_scores.items() %}
-        <li>{{ exercise }} - {{ points }} points</li>
-    {% endfor %}
-</ul>
-
-<h2>Records personnels par exercice</h2>
-
-<ul>
-    {% for exercise, record in personal_records.items() %}
-        <li>
-            {{ exercise }}
-            -
-            {{ record.weight }} kg
-            ×
-            {{ record.reps }} reps
-            =
-            {{ record.points }} points
-        </li>
-    {% endfor %}
-</ul>
+<p class="switch-link"><a href="/dashboard">← Retour dashboard</a></p>
+{% endblock %}

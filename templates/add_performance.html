@@ -1,31 +1,24 @@
-<h1>Ajouter une performance</h1>
+{% extends "base.html" %}
+{% block title %}Nouvelle performance – Gym Tracker{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h2>➕ Nouvelle séance</h2>
+    <form method="POST">
+        <label>Exercice</label>
+        <select name="exercise_id" required>
+            {% for exercise in exercises %}
+                <option value="{{ exercise.id }}">{{ exercise.name }} - {{ exercise.muscle }}</option>
+            {% endfor %}
+        </select>
 
-<form method="POST">
-    <label>Exercice :</label>
+        <label>Poids (kg)</label>
+        <input type="number" name="weight" step="0.5" required>
 
-    <select name="exercise_id" required>
-        {% for exercise in exercises %}
-            <option value="{{ exercise.id }}">
-                {{ exercise.name }} - {{ exercise.muscle }}
-            </option>
-        {% endfor %}
-    </select>
+        <label>Répétitions</label>
+        <input type="number" name="reps" required>
 
-    <br><br>
-
-    <label>Poids en kg :</label>
-    <input type="number" name="weight" step="0.5" required>
-
-    <br><br>
-
-    <label>Répétitions :</label>
-    <input type="number" name="reps" required>
-
-    <br><br>
-
-    <button type="submit">Enregistrer</button>
-</form>
-
-<br>
-
-<a href="/dashboard">Retour au dashboard</a>
+        <button type="submit" class="btn-primary">Enregistrer</button>
+    </form>
+    <p class="switch-link"><a href="/dashboard">← Retour au dashboard</a></p>
+</div>
+{% endblock %}

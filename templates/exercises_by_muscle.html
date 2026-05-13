@@ -1,13 +1,17 @@
-<h1>Exercices - {{ muscle_name }}</h1>
+{% extends "base.html" %}
+{% block title %}Exercices – {{ muscle_name }} – Gym Tracker{% endblock %}
+{% block content %}
+<h2>📋 Exercices – {{ muscle_name }}</h2>
 
-<ul>
+<div class="exercise-grid">
     {% for exercise in exercises %}
-        <li>
-            {{ exercise.name }}
-            -
-            <a href="/exercise/{{ exercise.id }}">Voir classement</a>
-        </li>
+        <div class="exercise-card">
+            <h4>{{ exercise.name }}</h4>
+            <span class="muscle-badge">{{ muscle_name }}</span>
+            <a href="/exercise/{{ exercise.id }}" class="btn btn-primary" style="margin-top:0.5rem;">Voir classement</a>
+        </div>
     {% endfor %}
-</ul>
+</div>
 
-<a href="/dashboard">Retour dashboard</a>
+<p class="switch-link"><a href="/dashboard">← Retour dashboard</a></p>
+{% endblock %}

@@ -1,23 +1,25 @@
-<h1>Informations sur les ranks</h1>
+{% extends "base.html" %}
+{% block title %}Rangs – Gym Tracker{% endblock %}
+{% block content %}
+<h2>ℹ️ Informations sur les rangs</h2>
+<p>Les rangs sont calculés selon le total de points accumulés (poids × répétitions).</p>
 
-<p>Les ranks dépendent du nombre total de points.</p>
-
-<p>Formule : points = poids × répétitions</p>
-
-<table border="1">
-    <tr>
-        <th>Rank</th>
-        <th>Points nécessaires</th>
-    </tr>
-
-    {% for minimum_points, rank_name in ranks %}
+<table class="styled-table">
+    <thead>
         <tr>
-            <td>{{ rank_name }}</td>
-            <td>{{ minimum_points }} points</td>
+            <th>Rang</th>
+            <th>Points nécessaires</th>
         </tr>
-    {% endfor %}
+    </thead>
+    <tbody>
+        {% for minimum_points, rank_name in ranks %}
+            <tr>
+                <td>{{ rank_name }}</td>
+                <td>{{ minimum_points }} points</td>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
-<br>
-
-<a href="/dashboard">Retour dashboard</a>
+<p class="switch-link"><a href="/dashboard">← Retour dashboard</a></p>
+{% endblock %}

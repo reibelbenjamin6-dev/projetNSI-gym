@@ -1,68 +1,59 @@
-<h1>Dashboard</h1>
+{% extends "base.html" %}
+{% block title %}Dashboard – Gym Tracker{% endblock %}
+{% block content %}
+<h2>📊 Tableau de bord – {{ current_user.username }}</h2>
 
-<p>Tu es connecté.</p>
+<div class="dashboard-grid">
+    <div class="card">
+        <h3>➕ Nouvelle séance</h3>
+        <a href="/add-performance" class="btn btn-primary">Ajouter une performance</a>
+    </div>
+    <div class="card">
+        <h3>👤 Profil</h3>
+        <a href="/profile" class="btn btn-primary">Voir mon profil</a>
+    </div>
+    <div class="card">
+        <h3>🏆 Classements</h3>
+        <ul>
+            <li><a href="/best-scores">Meilleurs scores globaux</a></li>
+            <li><a href="/leaderboard">Classement global</a></li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>📋 Exercices par muscle</h3>
+        <ul class="muscle-list">
+            {% for muscle, label in {'Chest':'🏋️ Chest', 'Back':'🪽 Back', 'Shoulders':'🧍 Shoulders', 'Biceps':'💪 Biceps', 'Triceps':'🔱 Triceps', 'Legs':'🦵 Legs', 'Abs':'🔥 Abs', 'Forearms':'✊ Forearms', 'Calves':'🦶 Calves'}.items() %}
+                <li><a href="/exercises/{{ muscle }}">{{ label }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="card">
+        <h3>🏅 Classements par muscle</h3>
+        <ul>
+            {% for muscle in ['Chest','Back','Shoulders','Biceps','Triceps','Legs','Abs','Forearms','Calves'] %}
+                <li><a href="/muscle/{{ muscle }}">{{ muscle }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="card">
+        <h3>ℹ️ Rangs</h3>
+        <a href="/ranks">Voir les informations sur les rangs</a>
+    </div>
+</div>
 
-<a href="/logout">Se déconnecter</a>
-<p>
-    <a href="/profile">Voir mon profil</a>
-</p>
-
-<p>
-    <a href="/add-performance">Ajouter une performance</a>
-</p>
-<p>
-    <a href="/ranks">Voir les informations sur les ranks</a>
-</p>
-<p>
-    <a href="/best-scores">Voir les meilleurs scores globaux</a>
-</p>
-<h2>Classement par exercices</h2>
-
-<ul>
-    <li><a href="/exercises/Chest">🏋️ Chest</a></li>
-    <li><a href="/exercises/Back">🪽 Back</a></li>
-    <li><a href="/exercises/Shoulders">🧍 Shoulders</a></li>
-    <li><a href="/exercises/Biceps">💪 Biceps</a></li>
-    <li><a href="/exercises/Triceps">🔱 Triceps</a></li>
-    <li><a href="/exercises/Legs">🦵 Legs</a></li>
-    <li><a href="/exercises/Abs">🔥 Abs</a></li>
-    <li><a href="/exercises/Forearms">✊ Forearms</a></li>
-    <li><a href="/exercises/Calves">🦶 Calves</a></li>
-</ul>
-
-<h2>Classements par muscle</h2>
-
-<ul>
-    <li><a href="/muscle/Chest">Chest</a></li>
-    <li><a href="/muscle/Back">Back</a></li>
-    <li><a href="/muscle/Shoulders">Shoulders</a></li>
-    <li><a href="/muscle/Biceps">Biceps</a></li>
-    <li><a href="/muscle/Triceps">Triceps</a></li>
-    <li><a href="/muscle/Legs">Legs</a></li>
-    <li><a href="/muscle/Abs">Abs</a></li>
-    <li><a href="/muscle/Forearms">Forearms</a></li>
-    <li><a href="/muscle/Calves">Calves</a></li>
-</ul>
-
-<h2>Mes performances</h2>
-<h2>Total de mes points : {{ total_points }} — Rank : {{ user_rank }}</h2>
-<p>Prochain rank : {{ next_rank }}</p>
-<p>Points manquants : {{ points_needed }}</p>
-<p>Progression vers le prochain rank : {{ rank_progress }}%</p>
-<ul>
+<h3>🔹 Mes performances récentes</h3>
+<p>Total points : <strong>{{ total_points }}</strong> — Rang : <strong>{{ user_rank }}</strong></p>
+<p>Prochain rang : {{ next_rank }} ({{ points_needed }} points manquants, {{ rank_progress }}%)</p>
+<div class="exercise-grid">
     {% for performance in performances %}
-        <li>
-            {{ performance.exercise.name }}
-            -
-            {{ performance.weight }} kg
-            ×
-            {{ performance.reps }} reps
-            =
-            {{ performance.points }} points
-
-            <form action="/delete-performance/{{ performance.id }}" method="POST" style="display:inline;">
+        <div class="exercise-card">
+            <h4>{{ performance.exercise.name }}</h4>
+            <p>{{ performance.weight }} kg × {{ performance.reps }} reps</p>
+            <p class="points">{{ performance.points }} pts</p>
+            <form action="/delete-performance/{{ performance.id }}" method="POST">
                 <button type="submit">Supprimer</button>
             </form>
-        </li>
+        </div>
     {% endfor %}
-</ul>
+</div>
+{% endblock %}
