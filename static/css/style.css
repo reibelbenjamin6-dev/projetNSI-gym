@@ -228,3 +228,12 @@ footer {
 .switch-link a {
     color: #6c63ff;
 }
+
+/* ====== MESSAGE DISCRET MOT DE PASSE ====== */
+.password-hint {
+    font-size: 0.75rem;
+    color: #8a8a9a;
+    margin-top: -0.4rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
