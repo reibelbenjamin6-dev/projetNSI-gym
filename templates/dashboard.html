@@ -21,25 +21,20 @@
     </div>
     <div class="card">
         <h3>📋 Exercices par muscle</h3>
-        <ul class="muscle-list">
-            {% for muscle, label in {'Chest':'🏋️ Chest', 'Back':'🪽 Back', 'Shoulders':'🧍 Shoulders', 'Biceps':'💪 Biceps', 'Triceps':'🔱 Triceps', 'Legs':'🦵 Legs', 'Abs':'🔥 Abs', 'Forearms':'✊ Forearms', 'Calves':'🦶 Calves'}.items() %}
-                <li><a href="/exercises/{{ muscle }}">{{ label }}</a></li>
+        <div class="muscle-links">
+            {% for muscle in ['Chest','Back','Shoulders','Biceps','Triceps','Legs','Abs','Forearms','Calves'] %}
+                <a href="/exercises/{{ muscle }}" class="btn btn-outline btn-sm">{{ muscle }}</a>
             {% endfor %}
-        </ul>
+        </div>
     </div>
     <div class="card">
         <h3>🏅 Classements par muscle</h3>
-        <ul>
+        <div class="muscle-links">
             {% for muscle in ['Chest','Back','Shoulders','Biceps','Triceps','Legs','Abs','Forearms','Calves'] %}
-                <li><a href="/muscle/{{ muscle }}">{{ muscle }}</a></li>
+                <a href="/muscle/{{ muscle }}" class="btn btn-outline btn-sm">{{ muscle }}</a>
             {% endfor %}
-        </ul>
+        </div>
     </div>
-    <div class="card">
-        <h3>ℹ️ Rangs</h3>
-        <a href="/ranks">Voir les informations sur les rangs</a>
-    </div>
-</div>
 
 <h3>🔹 Mes performances récentes</h3>
 <p>Total points : <strong>{{ total_points }}</strong> — Rang : <strong>{{ user_rank }}</strong></p>
