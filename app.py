@@ -330,6 +330,12 @@ def delete_performance(performance_id):
 
     return redirect(url_for("dashboard"))
 
+
+@app.route("/ranks")
+@login_required
+def ranks_page():
+    return render_template("ranks.html", ranks=RANKS)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
