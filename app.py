@@ -128,19 +128,27 @@ def dashboard():
 
     for performance in performances:
         total_points = total_points + performance.points
+
     user_rank = get_rank(total_points)
     next_rank, points_needed = get_next_rank(total_points)
 
+    next_rank_threshold = total_points + points_needed
+
+    if next_rank_threshold == 0:
+        rank_progress = 100
+    else:
+        rank_progress = round((total_points / next_rank_threshold) * 100, 1)
 
     return render_template(
-    "dashboard.html",
-    exercises=exercises,
-    performances=performances,
-    total_points=total_points,
-    user_rank=user_rank,
-    next_rank=next_rank,
-    points_needed=points_needed
-)
+        "dashboard.html",
+        exercises=exercises,
+        performances=performances,
+        total_points=total_points,
+        user_rank=user_rank,
+        next_rank=next_rank,
+        points_needed=points_needed,
+        rank_progress=rank_progress
+    )
 
 
 @app.route("/add-performance")
@@ -362,6 +370,75 @@ def best_scores():
     )
 
     return render_template("best_scores.html", scores=scores)
+
+@app.route("/profile")
+@login_required
+def profile():
+    performances = Performance.query.filter_by(
+        user_id=current_user.id
+    ).all()
+
+    total_points = 0
+    exercise_scores = {}
+    muscle_scores = {}
+    personal_records = {}
+
+    for performance in performances:
+        total_points = total_points + performance.points
+
+        exercise_name = performance.exercise.name
+        muscle_name = performance.exercise.muscle
+
+        if exercise_name not in exercise_scores:
+            exercise_scores[exercise_name] = 0
+
+        exercise_scores[exercise_name] = exercise_scores[exercise_name] + performance.points
+
+        if muscle_name not in muscle_scores:
+            muscle_scores[muscle_name] = 0
+
+        muscle_scores[muscle_name] = muscle_scores[muscle_name] + performance.points
+
+        if exercise_name not in personal_records:
+            personal_records[exercise_name] = performance
+        else:
+            if performance.points > personal_records[exercise_name].points:
+                personal_records[exercise_name] = performance
+
+    best_exercise = None
+    best_exercise_points = 0
+
+    for exercise_name in exercise_scores:
+        if exercise_scores[exercise_name] > best_exercise_points:
+            best_exercise = exercise_name
+            best_exercise_points = exercise_scores[exercise_name]
+
+    best_muscle = None
+    best_muscle_points = 0
+
+    for muscle_name in muscle_scores:
+        if muscle_scores[muscle_name] > best_muscle_points:
+            best_muscle = muscle_name
+            best_muscle_points = muscle_scores[muscle_name]
+
+    user_rank = get_rank(total_points)
+    next_rank, points_needed = get_next_rank(total_points)
+
+    return render_template(
+        "profile.html",
+        performances=performances,
+        total_points=total_points,
+        user_rank=user_rank,
+        next_rank=next_rank,
+        points_needed=points_needed,
+        exercise_scores=exercise_scores,
+        muscle_scores=muscle_scores,
+        personal_records=personal_records,
+        best_exercise=best_exercise,
+        best_exercise_points=best_exercise_points,
+        best_muscle=best_muscle,
+        best_muscle_points=best_muscle_points
+    )
 
 if __name__ == "__main__":
     with app.app_context():

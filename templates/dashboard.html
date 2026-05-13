@@ -3,6 +3,9 @@
 <p>Tu es connecté.</p>
 
 <a href="/logout">Se déconnecter</a>
+<p>
+    <a href="/profile">Voir mon profil</a>
+</p>
 
 <p>
     <a href="/add-performance">Ajouter une performance</a>
@@ -45,6 +48,7 @@
 <h2>Total de mes points : {{ total_points }} — Rank : {{ user_rank }}</h2>
 <p>Prochain rank : {{ next_rank }}</p>
 <p>Points manquants : {{ points_needed }}</p>
+<p>Progression vers le prochain rank : {{ rank_progress }}%</p>
 <ul>
     {% for performance in performances %}
         <li>

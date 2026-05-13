@@ -1,0 +1,59 @@
+<h1>Mon profil</h1>
+
+<p><a href="/dashboard">Retour dashboard</a></p>
+
+<h2>Résumé</h2>
+
+<p>Total de points : {{ total_points }}</p>
+<p>Rank actuel : {{ user_rank }}</p>
+<p>Prochain rank : {{ next_rank }}</p>
+<p>Points manquants : {{ points_needed }}</p>
+<p>Nombre de performances : {{ performances|length }}</p>
+
+<h2>Meilleur exercice</h2>
+
+{% if best_exercise %}
+    <p>{{ best_exercise }} - {{ best_exercise_points }} points</p>
+{% else %}
+    <p>Aucune performance enregistrée.</p>
+{% endif %}
+
+<h2>Meilleur muscle</h2>
+
+{% if best_muscle %}
+    <p>{{ best_muscle }} - {{ best_muscle_points }} points</p>
+{% else %}
+    <p>Aucune performance enregistrée.</p>
+{% endif %}
+
+<h2>Points par muscle</h2>
+
+<ul>
+    {% for muscle, points in muscle_scores.items() %}
+        <li>{{ muscle }} - {{ points }} points</li>
+    {% endfor %}
+</ul>
+
+<h2>Points par exercice</h2>
+
+<ul>
+    {% for exercise, points in exercise_scores.items() %}
+        <li>{{ exercise }} - {{ points }} points</li>
+    {% endfor %}
+</ul>
+
+<h2>Records personnels par exercice</h2>
+
+<ul>
+    {% for exercise, record in personal_records.items() %}
+        <li>
+            {{ exercise }}
+            -
+            {{ record.weight }} kg
+            ×
+            {{ record.reps }} reps
+            =
+            {{ record.points }} points
+        </li>
+    {% endfor %}
+</ul>
