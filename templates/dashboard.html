@@ -7,21 +7,44 @@
 <p>
     <a href="/add-performance">Ajouter une performance</a>
 </p>
-
-<h2>Liste des exercices</h2>
+<p>
+    <a href="/ranks">Voir les informations sur les ranks</a>
+</p>
+<p>
+    <a href="/best-scores">Voir les meilleurs scores globaux</a>
+</p>
+<h2>Classement par exercices</h2>
 
 <ul>
-    {% for exercise in exercises %}
-        <li>
-            {{ exercise.name }} - {{ exercise.muscle }}
-        </li>
-    {% endfor %}
+    <li><a href="/exercises/Chest">🏋️ Chest</a></li>
+    <li><a href="/exercises/Back">🪽 Back</a></li>
+    <li><a href="/exercises/Shoulders">🧍 Shoulders</a></li>
+    <li><a href="/exercises/Biceps">💪 Biceps</a></li>
+    <li><a href="/exercises/Triceps">🔱 Triceps</a></li>
+    <li><a href="/exercises/Legs">🦵 Legs</a></li>
+    <li><a href="/exercises/Abs">🔥 Abs</a></li>
+    <li><a href="/exercises/Forearms">✊ Forearms</a></li>
+    <li><a href="/exercises/Calves">🦶 Calves</a></li>
 </ul>
 
+<h2>Classements par muscle</h2>
 
+<ul>
+    <li><a href="/muscle/Chest">Chest</a></li>
+    <li><a href="/muscle/Back">Back</a></li>
+    <li><a href="/muscle/Shoulders">Shoulders</a></li>
+    <li><a href="/muscle/Biceps">Biceps</a></li>
+    <li><a href="/muscle/Triceps">Triceps</a></li>
+    <li><a href="/muscle/Legs">Legs</a></li>
+    <li><a href="/muscle/Abs">Abs</a></li>
+    <li><a href="/muscle/Forearms">Forearms</a></li>
+    <li><a href="/muscle/Calves">Calves</a></li>
+</ul>
 
 <h2>Mes performances</h2>
-
+<h2>Total de mes points : {{ total_points }} — Rank : {{ user_rank }}</h2>
+<p>Prochain rank : {{ next_rank }}</p>
+<p>Points manquants : {{ points_needed }}</p>
 <ul>
     {% for performance in performances %}
         <li>
@@ -32,6 +55,10 @@
             {{ performance.reps }} reps
             =
             {{ performance.points }} points
+
+            <form action="/delete-performance/{{ performance.id }}" method="POST" style="display:inline;">
+                <button type="submit">Supprimer</button>
+            </form>
         </li>
     {% endfor %}
 </ul>

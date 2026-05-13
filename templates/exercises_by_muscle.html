@@ -1,0 +1,13 @@
+<h1>Exercices - {{ muscle_name }}</h1>
+
+<ul>
+    {% for exercise in exercises %}
+        <li>
+            {{ exercise.name }}
+            -
+            <a href="/exercise/{{ exercise.id }}">Voir classement</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="/dashboard">Retour dashboard</a>

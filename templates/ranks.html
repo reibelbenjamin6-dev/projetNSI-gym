@@ -1,0 +1,23 @@
+<h1>Informations sur les ranks</h1>
+
+<p>Les ranks dépendent du nombre total de points.</p>
+
+<p>Formule : points = poids × répétitions</p>
+
+<table border="1">
+    <tr>
+        <th>Rank</th>
+        <th>Points nécessaires</th>
+    </tr>
+
+    {% for minimum_points, rank_name in ranks %}
+        <tr>
+            <td>{{ rank_name }}</td>
+            <td>{{ minimum_points }} points</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<a href="/dashboard">Retour dashboard</a>
