@@ -336,6 +336,33 @@ def delete_performance(performance_id):
 def ranks_page():
     return render_template("ranks.html", ranks=RANKS)
 
+
+@app.route("/best-scores")
+@login_required
+def best_scores():
+    scores = []
+
+    users = User.query.all()
+
+    for user in users:
+        total = 0
+
+        for performance in user.performances:
+            total = total + performance.points
+
+        scores.append({
+            "username": user.username,
+            "points": total,
+            "rank": get_rank(total)
+        })
+
+    scores.sort(
+        key=lambda user: user["points"],
+        reverse=True
+    )
+
+    return render_template("best_scores.html", scores=scores)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

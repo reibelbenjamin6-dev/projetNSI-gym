@@ -1,0 +1,17 @@
+<h1>Meilleurs scores globaux</h1>
+
+<p>Ce classement additionne les points de tous les exercices.</p>
+
+<ol>
+    {% for user in scores %}
+        <li>
+            {{ user.username }}
+            -
+            {{ user.points }} points
+            -
+            Rank : {{ user.rank }}
+        </li>
+    {% endfor %}
+</ol>
+
+<a href="/dashboard">Retour dashboard</a>
