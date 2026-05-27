@@ -20,6 +20,11 @@
         </div>
     </div>
     <div class="card">
+        <a href="{{ url_for('recovery_calendar') }}">
+    Calendrier
+</a>
+    </div>
+    <div class="card">
         <h3>📋 Exercices par muscle</h3>
         <div class="muscle-links">
             {% for muscle in ['Chest','Back','Shoulders','Biceps','Triceps','Legs','Abs','Forearms','Calves'] %}
@@ -36,10 +41,9 @@
         </div>
     </div>
     <div class="card">
-        <h3>ℹ️ Rangs</h3>
+        <h3>Rangs</h3>
         <a href="/ranks" class="btn btn-outline btn-sm">Infos rangs</a>
     </div>
-</div>
 
 <h3>🔹 Mes performances récentes</h3>
 <p>Total points : <strong>{{ total_points }}</strong> — Rang : <strong>{{ user_rank }}</strong></p>
