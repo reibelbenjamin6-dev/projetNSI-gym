@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Recovery Calendar</h1>
+
+<h2>État de récupération musculaire</h2>
+
+{% for muscle, info in muscles.items() %}
+
+<div style="
+margin:20px;
+padding:15px;
+border:1px solid white;
+border-radius:10px;
+">
+
+    <h3>{{ muscle }}</h3>
+
+    <p>{{ info.status }}</p>
+
+    <p>Dernier entraînement :
+        il y a {{ info.days }} jour(s)
+    </p>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

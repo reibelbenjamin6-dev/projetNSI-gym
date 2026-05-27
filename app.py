@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, date
 from flask import Flask, request, redirect, url_for, render_template
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import db, User, Exercise, Performance
@@ -30,7 +31,7 @@ RANKS = [
     (700000, "IFBB Elite"),
     (900000, "Abdelkader"),
     (1200000, "Olympia Legend"),
-    (1500000, "Greek Physique"),
+    (1500000, "Greek Physique (MALO<3)"),
 ]
 
 def get_rank(points):
@@ -188,7 +189,41 @@ def add_performance():
         return redirect(url_for("dashboard"))
 
     return render_template("add_performance.html", exercises=exercises)
+@app.route("/recovery-calendar")
+@login_required
+def recovery_calendar():
 
+    muscles = {}
+
+    performances = Performance.query.filter_by(
+        user_id=current_user.id
+    ).all()
+
+    for performance in performances:
+
+        muscle = performance.exercise.muscle
+        training_date = performance.date
+
+        days_since = (date.today() - training_date).days
+
+        if muscle not in muscles or days_since < muscles[muscle]["days"]:
+
+            if days_since <= 1:
+                status = " Fatigué"
+            elif days_since == 2:
+                status = " Récupération"
+            else:
+                status = " Prêt"
+
+            muscles[muscle] = {
+                "status": status,
+                "days": days_since
+            }
+
+    return render_template(
+        "recovery_calendar.html",
+        muscles=muscles
+    )
 @app.route("/leaderboard")
 @login_required
 def leaderboard():

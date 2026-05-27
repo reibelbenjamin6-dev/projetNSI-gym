@@ -20,6 +20,11 @@
         </div>
     </div>
     <div class="card">
+        <a href="{{ url_for('recovery_calendar') }}">
+    Calendrier
+</a>
+    </div>
+    <div class="card">
         <h3>📋 Exercices par muscle</h3>
         <div class="muscle-links">
             {% for muscle in ['Chest','Back','Shoulders','Biceps','Triceps','Legs','Abs','Forearms','Calves'] %}

@@ -1,3 +1,4 @@
+from datetime import date
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -39,6 +40,7 @@ class Performance(db.Model):
     weight = db.Column(db.Float, nullable=False)
     reps = db.Column(db.Integer, nullable=False)
     points = db.Column(db.Float, nullable=False)
+    date = db.Column(db.Date, nullable=False, default=date.today)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     exercise_id = db.Column(db.Integer, db.ForeignKey("exercises.id"), nullable=False)
