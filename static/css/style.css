@@ -1,254 +1,188 @@
-/* ----- THÈME SOMBRE - GYM TRACKER ----- */
-
-/* Reset : supprime les marges et paddings par défaut */
+/* Reset de base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fond global sombre */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0f0f1a;        /* presque noir, bleu très foncé */
-    color: #e0e0e0;                   /* texte clair */
+    background-color: #f5f6fa;
+    color: #2c3e50;
     line-height: 1.6;
 }
 
-/* ====== HEADER ====== */
+/* Header */
 header {
-    background-color: #1a1a2e;        /* bleu nuit profond */
+    background-color: #2c3e50;
     color: white;
-    padding: 1.2rem 2rem;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #6c63ff; /* petite touche violet/bleu */
 }
 
 header h1 {
-    font-size: 1.6rem;
-    color: #ffffff;
+    margin: 0;
+    font-size: 1.5rem;
 }
 
 /* Navigation */
 nav {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
+    align-items: center;
 }
+
 nav a {
-    color: #b0b0e0;
+    color: #ecf0f1;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-nav a:hover {
-    color: #6c63ff;                   /* violet au survol */
-}
-
-/* ====== CONTENU PRINCIPAL ====== */
-main {
-    max-width: 960px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-}
-
-/* ====== TITRES ====== */
-h1, h2, h3 {
-    color: #ffffff;
-    margin-bottom: 1rem;
-}
-
-/* ====== CARTES GÉNÉRIQUES (exercices, scores, etc.) ====== */
-.card, .exercise-card {
-    background: #1e1e2f;              /* carte légèrement plus claire que le fond */
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #2a2a40;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.card:hover, .exercise-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
-}
-
-/* ====== FORMULAIRES ====== */
-form {
-    background: #1e1e2f;
-    padding: 2rem;
-    border-radius: 12px;
-    border: 1px solid #2a2a40;
-    max-width: 450px;
-    margin: 2rem auto;
-}
-input, select {
-    width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1.2rem;
-    border: 1px solid #3a3a5c;
-    background: #0f0f1a;
-    color: #e0e0e0;
-    border-radius: 6px;
-}
-input::placeholder {
-    color: #6a6a8a;
-}
-button {
-    background: #6c63ff;             /* violet moderne */
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 6px;
     font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-button:hover {
-    background: #5a52d5;
 }
 
-/* ====== TABLEAUX (classement) ====== */
-.styled-table {
+nav a:hover {
+    color: #f39c12;
+}
+
+/* Contenu principal */
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1, h2 {
+    margin-bottom: 1rem;
+}
+
+/* Formulaires */
+form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+input {
+    display: block;
     width: 100%;
-    border-collapse: collapse;
-    background: #1e1e2f;
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 1.5rem 0;
-}
-.styled-table th {
-    background: #6c63ff;
-    color: white;
-    padding: 0.8rem;
-    text-align: left;
-}
-.styled-table td {
-    padding: 0.8rem;
-    border-bottom: 1px solid #2a2a40;
-}
-.styled-table tr:hover td {
-    background: #2a2a4a;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-/* ====== GRILLE D'EXERCICES ====== */
-.exercise-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.2rem;
-    margin-top: 1.5rem;
-}
-.exercise-card h4 {
-    color: #ffffff;
-    margin-bottom: 0.3rem;
-}
-.muscle-badge {
-    background: #6c63ff;
+button {
+    background-color: #27ae60;
     color: white;
-    padding: 0.2rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-/* ====== MESSAGES FLASH ====== */
+button:hover {
+    background-color: #219a52;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 0.5rem;
+    margin-top: 2rem;
+}
+
+/* Messages flash */
 .flash-messages {
-    max-width: 450px;
+    max-width: 400px;
     margin: 1rem auto;
 }
 .flash-message {
-    background: #ff4d4d;
+    background: #e74c3c;
     color: white;
-    padding: 0.8rem;
-    border-radius: 6px;
+    padding: 0.75rem;
+    border-radius: 4px;
     margin-bottom: 0.5rem;
 }
 
-/* ====== FOOTER ====== */
-footer {
-    background-color: #1a1a2e;
-    color: #7a7a9a;
-    text-align: center;
-    padding: 0.8rem;
-    border-top: 1px solid #2a2a40;
-    margin-top: 3rem;
-}
-
-/* ====== BOUTONS HERO (page d'accueil) ====== */
+/* Hero section (page d'accueil) */
 .hero {
     text-align: center;
-    padding: 4rem 1rem;
+    padding: 3rem 1rem;
 }
 .hero h2 {
-    font-size: 2.4rem;
-    margin-bottom: 0.8rem;
-    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
 }
 .hero p {
     font-size: 1.2rem;
-    color: #a0a0c0;
+    color: #7f8c8d;
     margin-bottom: 2rem;
 }
+
+/* Boutons */
 .btn {
     display: inline-block;
-    padding: 0.8rem 1.8rem;
+    padding: 0.75rem 1.5rem;
     margin: 0 0.5rem;
-    border-radius: 6px;
+    border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
-    transition: background 0.2s;
 }
-.btn-primary {
-    background: #6c63ff;
+.btn-green {
+    background-color: #27ae60;
     color: white;
 }
-.btn-primary:hover {
-    background: #5a52d5;
+.btn-green:hover {
+    background-color: #219a52;
 }
 .btn-outline {
     background: transparent;
-    border: 2px solid #6c63ff;
-    color: #6c63ff;
+    border: 2px solid #2c3e50;
+    color: #2c3e50;
 }
 .btn-outline:hover {
-    background: #6c63ff;
+    background: #2c3e50;
     color: white;
 }
 
-/* ====== CONTENEUR DE FORMULAIRE (login/register) ====== */
+/* Conteneur de formulaire */
 .form-container {
-    max-width: 450px;
+    max-width: 400px;
     margin: 2rem auto;
 }
 .switch-link {
     text-align: center;
     margin-top: 1rem;
-    color: #a0a0c0;
-}
-.switch-link a {
-    color: #6c63ff;
 }
 
-/* ====== MESSAGE DISCRET MOT DE PASSE ====== */
-.password-hint {
-    font-size: 0.75rem;
-    color: #8a8a9a;
-    margin-top: -0.4rem;
-    margin-bottom: 1.5rem;
-    font-style: italic;
+/* Grille d'exercices */
+.exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
 }
-
-/* ====== PETITS BOUTONS (muscles, classements) ====== */
-.btn-sm {
-    padding: 0.4rem 0.8rem;
+.exercise-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.exercise-card h4 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+.muscle {
+    background: #ecf0f1;
+    color: #2c3e50;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
     font-size: 0.85rem;
-    margin: 0.2rem;
-}
-
-/* Conteneur flexible pour les boutons de muscles / classements */
-.muscle-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;          /* espacement horizontal et vertical */
-    margin-top: 0.5rem;   /* décollage du titre au-dessus */
 }
