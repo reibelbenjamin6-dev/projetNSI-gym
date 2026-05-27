@@ -27,6 +27,7 @@ class Exercise(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     muscle = db.Column(db.String(50), nullable=False)
+    difficulty = db.Column(db.Float, nullable=False, default=1.0)
 
     performances = db.relationship("Performance", back_populates="exercise")
 

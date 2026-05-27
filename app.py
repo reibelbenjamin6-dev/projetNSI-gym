@@ -65,6 +65,14 @@ def get_next_rank(points):
 
     return "Rank maximum atteint", 0
 
+def calculate_points(weight, reps, difficulty):
+    if weight <= 0 or reps <= 0:
+        return 0
+
+    points = weight * (reps ** 0.6) * difficulty
+
+    return round(points, 1)
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -168,11 +176,13 @@ def add_performance():
     exercises = Exercise.query.all()
 
     if request.method == "POST":
-        exercise_id = request.form.get("exercise_id")
+        exercise_id = int(request.form.get("exercise_id"))
         weight = float(request.form.get("weight"))
         reps = int(request.form.get("reps"))
 
-        points = weight * reps
+        exercise = Exercise.query.get_or_404(exercise_id)
+
+        points = calculate_points(weight, reps, exercise.difficulty)
 
         performance = Performance(
             weight=weight,
@@ -288,11 +298,13 @@ def add_performance_by_muscle(muscle_name):
     exercises = Exercise.query.filter_by(muscle=muscle_name).all()
 
     if request.method == "POST":
-        exercise_id = request.form.get("exercise_id")
+        exercise_id = int(request.form.get("exercise_id"))
         weight = float(request.form.get("weight"))
         reps = int(request.form.get("reps"))
 
-        points = weight * reps
+        exercise = Exercise.query.get_or_404(exercise_id)
+
+        points = calculate_points(weight, reps, exercise.difficulty)
 
         performance = Performance(
             weight=weight,
@@ -448,114 +460,113 @@ if __name__ == "__main__":
             exercises = [
 
     # CHEST
-    Exercise(name="Bench Press", muscle="Chest"),
-    Exercise(name="Incline Bench Press", muscle="Chest"),
-    Exercise(name="Decline Bench Press", muscle="Chest"),
-    Exercise(name="Dumbbell Press", muscle="Chest"),
-    Exercise(name="Incline Dumbbell Press", muscle="Chest"),
-    Exercise(name="Chest Fly", muscle="Chest"),
-    Exercise(name="Cable Fly", muscle="Chest"),
-    Exercise(name="Push Up", muscle="Chest"),
-    Exercise(name="Dips", muscle="Chest"),
-    Exercise(name="Machine Chest Press", muscle="Chest"),
+    Exercise(name="Bench Press", muscle="Chest", difficulty=1.4),
+    Exercise(name="Incline Bench Press", muscle="Chest", difficulty=1.4),
+    Exercise(name="Decline Bench Press", muscle="Chest", difficulty=1.3),
+    Exercise(name="Dumbbell Press", muscle="Chest", difficulty=1.3),
+    Exercise(name="Incline Dumbbell Press", muscle="Chest", difficulty=1.3),
+    Exercise(name="Chest Fly", muscle="Chest", difficulty=0.9),
+    Exercise(name="Cable Fly", muscle="Chest", difficulty=0.9),
+    Exercise(name="Push Up", muscle="Chest", difficulty=1.0),
+    Exercise(name="Dips", muscle="Chest", difficulty=1.3),
+    Exercise(name="Machine Chest Press", muscle="Chest", difficulty=1.1),
 
     # BACK
-    Exercise(name="Pull Up", muscle="Back"),
-    Exercise(name="Chin Up", muscle="Back"),
-    Exercise(name="Lat Pulldown", muscle="Back"),
-    Exercise(name="Barbell Row", muscle="Back"),
-    Exercise(name="Dumbbell Row", muscle="Back"),
-    Exercise(name="T-Bar Row", muscle="Back"),
-    Exercise(name="Deadlift", muscle="Back"),
-    Exercise(name="Seated Cable Row", muscle="Back"),
-    Exercise(name="Rack Pull", muscle="Back"),
-    Exercise(name="Straight Arm Pulldown", muscle="Back"),
+    Exercise(name="Pull Up", muscle="Back", difficulty=1.5),
+    Exercise(name="Chin Up", muscle="Back", difficulty=1.4),
+    Exercise(name="Lat Pulldown", muscle="Back", difficulty=1.1),
+    Exercise(name="Barbell Row", muscle="Back", difficulty=1.4),
+    Exercise(name="Dumbbell Row", muscle="Back", difficulty=1.2),
+    Exercise(name="T-Bar Row", muscle="Back", difficulty=1.3),
+    Exercise(name="Deadlift", muscle="Back", difficulty=1.7),
+    Exercise(name="Seated Cable Row", muscle="Back", difficulty=1.1),
+    Exercise(name="Rack Pull", muscle="Back", difficulty=1.5),
+    Exercise(name="Straight Arm Pulldown", muscle="Back", difficulty=0.9),
 
     # SHOULDERS
-    Exercise(name="Shoulder Press", muscle="Shoulders"),
-    Exercise(name="Arnold Press", muscle="Shoulders"),
-    Exercise(name="Lateral Raise", muscle="Shoulders"),
-    Exercise(name="Front Raise", muscle="Shoulders"),
-    Exercise(name="Rear Delt Fly", muscle="Shoulders"),
-    Exercise(name="Machine Shoulder Press", muscle="Shoulders"),
-    Exercise(name="Cable Lateral Raise", muscle="Shoulders"),
-    Exercise(name="Face Pull", muscle="Shoulders"),
-    Exercise(name="Upright Row", muscle="Shoulders"),
-    Exercise(name="Dumbbell Press", muscle="Shoulders"),
+    Exercise(name="Shoulder Press", muscle="Shoulders", difficulty=1.4),
+    Exercise(name="Arnold Press", muscle="Shoulders", difficulty=1.3),
+    Exercise(name="Lateral Raise", muscle="Shoulders", difficulty=0.9),
+    Exercise(name="Front Raise", muscle="Shoulders", difficulty=0.8),
+    Exercise(name="Rear Delt Fly", muscle="Shoulders", difficulty=0.9),
+    Exercise(name="Machine Shoulder Press", muscle="Shoulders", difficulty=1.2),
+    Exercise(name="Cable Lateral Raise", muscle="Shoulders", difficulty=0.9),
+    Exercise(name="Face Pull", muscle="Shoulders", difficulty=0.9),
+    Exercise(name="Upright Row", muscle="Shoulders", difficulty=1.0),
+    Exercise(name="Dumbbell Shoulder Press", muscle="Shoulders", difficulty=1.3),
 
     # BICEPS
-    Exercise(name="Barbell Curl", muscle="Biceps"),
-    Exercise(name="Dumbbell Curl", muscle="Biceps"),
-    Exercise(name="Hammer Curl", muscle="Biceps"),
-    Exercise(name="Preacher Curl", muscle="Biceps"),
-    Exercise(name="Cable Curl", muscle="Biceps"),
-    Exercise(name="Spider Curl", muscle="Biceps"),
-    Exercise(name="EZ Bar Curl", muscle="Biceps"),
-    Exercise(name="Concentration Curl", muscle="Biceps"),
-    Exercise(name="Incline Curl", muscle="Biceps"),
-    Exercise(name="Machine Curl", muscle="Biceps"),
+    Exercise(name="Barbell Curl", muscle="Biceps", difficulty=1.0),
+    Exercise(name="Dumbbell Curl", muscle="Biceps", difficulty=0.9),
+    Exercise(name="Hammer Curl", muscle="Biceps", difficulty=1.0),
+    Exercise(name="Preacher Curl", muscle="Biceps", difficulty=1.0),
+    Exercise(name="Cable Curl", muscle="Biceps", difficulty=0.9),
+    Exercise(name="Spider Curl", muscle="Biceps", difficulty=1.0),
+    Exercise(name="EZ Bar Curl", muscle="Biceps", difficulty=1.0),
+    Exercise(name="Concentration Curl", muscle="Biceps", difficulty=0.9),
+    Exercise(name="Incline Curl", muscle="Biceps", difficulty=1.0),
+    Exercise(name="Machine Curl", muscle="Biceps", difficulty=0.8),
 
     # TRICEPS
-    Exercise(name="Tricep Pushdown", muscle="Triceps"),
-    Exercise(name="Skull Crusher", muscle="Triceps"),
-    Exercise(name="Overhead Extension", muscle="Triceps"),
-    Exercise(name="Close Grip Bench", muscle="Triceps"),
-    Exercise(name="Bench Dips", muscle="Triceps"),
-    Exercise(name="Cable Pushdown", muscle="Triceps"),
-    Exercise(name="Single Arm Pushdown", muscle="Triceps"),
-    Exercise(name="French Press", muscle="Triceps"),
-    Exercise(name="JM Press", muscle="Triceps"),
-    Exercise(name="Machine Tricep Extension", muscle="Triceps"),
+    Exercise(name="Tricep Pushdown", muscle="Triceps", difficulty=0.9),
+    Exercise(name="Skull Crusher", muscle="Triceps", difficulty=1.1),
+    Exercise(name="Overhead Extension", muscle="Triceps", difficulty=1.0),
+    Exercise(name="Close Grip Bench", muscle="Triceps", difficulty=1.3),
+    Exercise(name="Bench Dips", muscle="Triceps", difficulty=1.0),
+    Exercise(name="Cable Pushdown", muscle="Triceps", difficulty=0.9),
+    Exercise(name="Single Arm Pushdown", muscle="Triceps", difficulty=0.8),
+    Exercise(name="French Press", muscle="Triceps", difficulty=1.1),
+    Exercise(name="JM Press", muscle="Triceps", difficulty=1.2),
+    Exercise(name="Machine Tricep Extension", muscle="Triceps", difficulty=0.8),
 
     # LEGS
-    Exercise(name="Squat", muscle="Legs"),
-    Exercise(name="Front Squat", muscle="Legs"),
-    Exercise(name="Hack Squat", muscle="Legs"),
-    Exercise(name="Leg Press", muscle="Legs"),
-    Exercise(name="Romanian Deadlift", muscle="Legs"),
-    Exercise(name="Bulgarian Split Squat", muscle="Legs"),
-    Exercise(name="Lunges", muscle="Legs"),
-    Exercise(name="Leg Extension", muscle="Legs"),
-    Exercise(name="Leg Curl", muscle="Legs"),
-    Exercise(name="Smith Machine Squat", muscle="Legs"),
+    Exercise(name="Squat", muscle="Legs", difficulty=1.6),
+    Exercise(name="Front Squat", muscle="Legs", difficulty=1.6),
+    Exercise(name="Hack Squat", muscle="Legs", difficulty=1.4),
+    Exercise(name="Leg Press", muscle="Legs", difficulty=1.3),
+    Exercise(name="Romanian Deadlift", muscle="Legs", difficulty=1.5),
+    Exercise(name="Bulgarian Split Squat", muscle="Legs", difficulty=1.5),
+    Exercise(name="Lunges", muscle="Legs", difficulty=1.2),
+    Exercise(name="Leg Extension", muscle="Legs", difficulty=0.9),
+    Exercise(name="Leg Curl", muscle="Legs", difficulty=0.9),
+    Exercise(name="Smith Machine Squat", muscle="Legs", difficulty=1.3),
 
     # ABS
-    Exercise(name="Crunch", muscle="Abs"),
-    Exercise(name="Cable Crunch", muscle="Abs"),
-    Exercise(name="Leg Raise", muscle="Abs"),
-    Exercise(name="Hanging Leg Raise", muscle="Abs"),
-    Exercise(name="Sit Up", muscle="Abs"),
-    Exercise(name="Russian Twist", muscle="Abs"),
-    Exercise(name="Plank", muscle="Abs"),
-    Exercise(name="Ab Wheel", muscle="Abs"),
-    Exercise(name="Toe Touch", muscle="Abs"),
-    Exercise(name="Mountain Climbers", muscle="Abs"),
+    Exercise(name="Crunch", muscle="Abs", difficulty=0.6),
+    Exercise(name="Cable Crunch", muscle="Abs", difficulty=0.8),
+    Exercise(name="Leg Raise", muscle="Abs", difficulty=0.9),
+    Exercise(name="Hanging Leg Raise", muscle="Abs", difficulty=1.1),
+    Exercise(name="Sit Up", muscle="Abs", difficulty=0.7),
+    Exercise(name="Russian Twist", muscle="Abs", difficulty=0.7),
+    Exercise(name="Plank", muscle="Abs", difficulty=0.8),
+    Exercise(name="Ab Wheel", muscle="Abs", difficulty=1.2),
+    Exercise(name="Toe Touch", muscle="Abs", difficulty=0.6),
+    Exercise(name="Mountain Climbers", muscle="Abs", difficulty=0.8),
 
     # FOREARMS
-    Exercise(name="Wrist Curl", muscle="Forearms"),
-    Exercise(name="Reverse Wrist Curl", muscle="Forearms"),
-    Exercise(name="Farmer Walk", muscle="Forearms"),
-    Exercise(name="Dead Hang", muscle="Forearms"),
-    Exercise(name="Grip Trainer", muscle="Forearms"),
-    Exercise(name="Plate Pinch", muscle="Forearms"),
-    Exercise(name="Hammer Hold", muscle="Forearms"),
-    Exercise(name="Behind Back Curl", muscle="Forearms"),
-    Exercise(name="Finger Curl", muscle="Forearms"),
-    Exercise(name="Towel Pull Up", muscle="Forearms"),
+    Exercise(name="Wrist Curl", muscle="Forearms", difficulty=0.7),
+    Exercise(name="Reverse Wrist Curl", muscle="Forearms", difficulty=0.7),
+    Exercise(name="Farmer Walk", muscle="Forearms", difficulty=1.1),
+    Exercise(name="Dead Hang", muscle="Forearms", difficulty=1.0),
+    Exercise(name="Grip Trainer", muscle="Forearms", difficulty=0.7),
+    Exercise(name="Plate Pinch", muscle="Forearms", difficulty=0.9),
+    Exercise(name="Hammer Hold", muscle="Forearms", difficulty=0.9),
+    Exercise(name="Behind Back Curl", muscle="Forearms", difficulty=0.8),
+    Exercise(name="Finger Curl", muscle="Forearms", difficulty=0.7),
+    Exercise(name="Towel Pull Up", muscle="Forearms", difficulty=1.3),
 
     # CALVES
-    Exercise(name="Standing Calf Raise", muscle="Calves"),
-    Exercise(name="Seated Calf Raise", muscle="Calves"),
-    Exercise(name="Donkey Calf Raise", muscle="Calves"),
-    Exercise(name="Single Leg Calf Raise", muscle="Calves"),
-    Exercise(name="Smith Machine Calf Raise", muscle="Calves"),
-    Exercise(name="Leg Press Calf Raise", muscle="Calves"),
-    Exercise(name="Jump Rope", muscle="Calves"),
-    Exercise(name="Box Jump", muscle="Calves"),
-    Exercise(name="Farmer Walk On Toes", muscle="Calves"),
-    Exercise(name="Machine Calf Raise", muscle="Calves"),
+    Exercise(name="Standing Calf Raise", muscle="Calves", difficulty=0.9),
+    Exercise(name="Seated Calf Raise", muscle="Calves", difficulty=0.8),
+    Exercise(name="Donkey Calf Raise", muscle="Calves", difficulty=0.9),
+    Exercise(name="Single Leg Calf Raise", muscle="Calves", difficulty=1.0),
+    Exercise(name="Smith Machine Calf Raise", muscle="Calves", difficulty=0.9),
+    Exercise(name="Leg Press Calf Raise", muscle="Calves", difficulty=0.9),
+    Exercise(name="Jump Rope", muscle="Calves", difficulty=0.7),
+    Exercise(name="Box Jump", muscle="Calves", difficulty=1.0),
+    Exercise(name="Farmer Walk On Toes", muscle="Calves", difficulty=1.0),
+    Exercise(name="Machine Calf Raise", muscle="Calves", difficulty=0.8),
 ]
-
             db.session.add_all(exercises)
             db.session.commit()
 
